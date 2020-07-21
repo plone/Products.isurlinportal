@@ -11,7 +11,7 @@ long_description = readme + "\n" + changes
 
 
 setup(
-    name="isurlinportal",
+    name="Products.isurlinportal",
     version="1.0.0.dev0",
     description="Replacement for isURLInPortal method in Plone",
     long_description=long_description,
@@ -32,9 +32,10 @@ setup(
     keywords="plone security hotfix patch",
     author="Plone Security Team",
     author_email="security@plone.org",
-    url="https://github.org/plone/isurlinportal",
+    url="https://github.org/plone/Products.isurlinportal",
     license="GPL",
     packages=find_packages(),
+    namespace_packages=["Products"],
     include_package_data=True,
     zip_safe=False,
     install_requires=["setuptools"],

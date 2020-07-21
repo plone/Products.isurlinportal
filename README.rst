@@ -114,6 +114,12 @@ Fixing your site would then be:
 
 We could still announce it as a hotfix if we want.
 
+Since all hotfixes are in the ``Products`` namespace, we put this package in the same namespace.
+Code in this namespace is automatically loaded by Plone/Zope.
+Also, this makes it easier to extract the main directory (``isurlinportal``) of this package and put it in an old-style ``products`` folder.
+Then you can just restart Plone without having to run buildout.
+This is mainly an issue for older Plone sites that have not been maintained well.
+
 
 Version numbers
 ---------------
