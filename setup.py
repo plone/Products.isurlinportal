@@ -38,9 +38,5 @@ setup(
     namespace_packages=["Products"],
     include_package_data=True,
     zip_safe=False,
-    install_requires=[
-        "setuptools",
-        # TODO maybe get rid of six dependency, as older Plones may not have it.
-        "six",
-        ],
+    install_requires=["setuptools"],
 )

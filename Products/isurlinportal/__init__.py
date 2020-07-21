@@ -1,18 +1,15 @@
 # -*- coding: utf-8 -*-
+from ._compat import unescape
+from ._compat import urljoin
+from ._compat import urlparse
 from posixpath import normpath
-from six.moves.html_parser import HTMLParser
-from six.moves.urllib import parse
 
 # This is the class we will patch:
 from Products.CMFPlone.URLTool import URLTool
 
-import html
 import re
-# TODO maybe get rid of six dependency, as older Plones may not have it.
-import six
 import string
 import unicodedata
-
 
 try:
     # Plone 5.0+
@@ -26,6 +23,7 @@ try:
         settings = registry.forInterface(ILoginSchema, prefix="plone")
         return settings.allow_external_login_sites
 
+
 except ImportError:
     # Plone 4.3
     from Products.CMFCore.utils import getToolByName
@@ -35,7 +33,6 @@ except ImportError:
         return props.getProperty("allow_external_login_sites", [])
 
 
-hp = HTMLParser()
 # These schemas are allowed in full urls to consider them in the portal:
 # A mailto schema is an obvious sign of a url that is not in the portal.
 # This is a whitelist.
@@ -138,17 +135,14 @@ def isURLInPortal(self, url, context=None):
 
     p_url = self()
 
-    schema, u_host, u_path, _, _, _ = parse.urlparse(url)
+    schema, u_host, u_path, _, _, _ = urlparse(url)
     if schema and schema not in ALLOWED_SCHEMAS:
         # Redirecting to 'data:' may be harmful,
         # and redirecting to 'mailto:' or 'ftp:' is silly.
         return False
 
     # Someone may be doing tricks with escaped html code.
-    if six.PY2:
-        unescaped_url = hp.unescape(url)
-    else:
-        unescaped_url = html.unescape(url)
+    unescaped_url = unescape(url)
     if unescaped_url != url:
         if not self.isURLInPortal(unescaped_url):
             return False
@@ -166,7 +160,7 @@ def isURLInPortal(self, url, context=None):
         useurl += "/"
 
     # urljoin to current url to get an absolute path
-    _, u_host, u_path, _, _, _ = parse.urlparse(parse.urljoin(useurl, url))
+    _, u_host, u_path, _, _, _ = urlparse(urljoin(useurl, url))
 
     # normalise to end with a '/' so /foobar is not considered within /foo
     if not u_path:
@@ -175,14 +169,14 @@ def isURLInPortal(self, url, context=None):
         u_path = normpath(u_path)
         if not u_path.endswith("/"):
             u_path += "/"
-    _, host, path, _, _, _ = parse.urlparse(p_url)
+    _, host, path, _, _, _ = urlparse(p_url)
     if not path.endswith("/"):
         path += "/"
     if host == u_host and u_path.startswith(path):
         return True
 
     for external_site in _get_external_sites(self):
-        _, host, path, _, _, _ = parse.urlparse(external_site)
+        _, host, path, _, _, _ = urlparse(external_site)
         if not path.endswith("/"):
             path += "/"
         if host == u_host and u_path.startswith(path):
