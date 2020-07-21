@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
 from Acquisition import aq_parent
-from plone.registry.interfaces import IRegistry
 from Products.CMFCore.tests.base.dummy import DummyContent
 from Products.CMFCore.tests.base.dummy import DummyFolder
 from Products.CMFCore.tests.base.dummy import DummySite
-from Products.CMFPlone.interfaces import ILoginSchema
 from zope.component import getSiteManager
 
 import unittest
@@ -15,8 +13,8 @@ class DummyFolder(DummyFolder):
         return "/".join([aq_parent(self).absolute_url(), self.getId()])
 
 
-class DummyLoginSettings:
-    allow_external_login_sites = [
+def dummy_get_external_sites(context=None):
+    return [
         "http://external1",
         "http://external2/",
         "http://external3/site",
@@ -24,26 +22,25 @@ class DummyLoginSettings:
     ]
 
 
-class DummyRegistry(DummyContent):
-    def __getitem__(self, name, default=None):
-        if name == "plone.allow_external_login_sites":
-            return DummyLoginSettings().allow_external_login_sites
-        return default
-
-    def forInterface(self, iface, prefix=""):
-        if iface == ILoginSchema:
-            return DummyLoginSettings()
-
 
 class TestURLTool(unittest.TestCase):
     def setUp(self):
+        import Products.isurlinportal
+
+        # Patch get_external_sites to return a fixed list of sites.
+        self._original_get_external_sites = Products.isurlinportal.get_external_sites
+        Products.isurlinportal.get_external_sites = dummy_get_external_sites
+
+        # Create dummy site and content.
         self.site = DummySite(id="foo")
         self.site._setObject("foo", DummyFolder(id="foo"))
         self.site.foo._setObject("doc1", DummyContent(id="doc1"))
-        mock_registry = DummyRegistry(id="portal_registry")
-        self.site.portal_registry = mock_registry
-        sm = getSiteManager()
-        sm.registerUtility(component=mock_registry, provided=IRegistry)
+
+    def tearDown(self):
+        import Products.isurlinportal
+
+        # Restore original get_external_sites.
+        Products.isurlinportal.get_external_sites = self._original_get_external_sites
 
     def _makeOne(self, *args, **kw):
         from Products.CMFPlone.URLTool import URLTool
