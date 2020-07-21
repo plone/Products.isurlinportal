@@ -103,6 +103,16 @@ def isURLInPortal(self, url, context=None):
     # site_properties are also considered within the portal to allow for
     # single sign on.
 
+    if len(url.splitlines()) > 1:
+        # very fishy
+        return False
+    if url != url.strip():
+        # somewhat fishy
+        return False
+    if url != " ".join(url.split()):
+        # Some non-normal whitespace is used, like a tab.
+        # Could be a ploy to circumvent our checks.  We don't trust this.
+        return False
     if url and not safe_url_first_char(url):
         return False
 

@@ -22,7 +22,6 @@ def dummy_get_external_sites(context=None):
     ]
 
 
-
 class TestURLTool(unittest.TestCase):
     def setUp(self):
         import Products.isurlinportal
@@ -176,3 +175,32 @@ class TestURLTool(unittest.TestCase):
         iURLiP = url_tool.isURLInPortal
         self.assertFalse(iURLiP("//www.google.com"))
         self.assertFalse(iURLiP("////www.google.com"))
+
+    def test_empty(self):
+        # Redirecting to nothing would probably mean we end up on the same page.
+        # So an empty url should be fine.
+        url_tool = self._makeOne()
+        iURLiP = url_tool.isURLInPortal
+        self.assertTrue(iURLiP(""))
+
+    def test_newlines(self):
+        url_tool = self._makeOne()
+        iURLiP = url_tool.isURLInPortal
+        self.assertTrue(iURLiP("foo"))
+        self.assertFalse(iURLiP("f\noo"))
+        self.assertFalse(iURLiP("f\roo"))
+        self.assertFalse(iURLiP("\nfoo"))
+        self.assertFalse(iURLiP("\rfoo"))
+
+    def test_whitespace(self):
+        url_tool = self._makeOne()
+        iURLiP = url_tool.isURLInPortal
+        self.assertTrue(iURLiP("foo"))
+        self.assertTrue(iURLiP("f oo"))
+        # '\x20' == ' '
+        self.assertTrue(iURLiP("f\x20oo"))
+        self.assertFalse(iURLiP("f\too"))
+        self.assertFalse(iURLiP("\tfoo"))
+        self.assertFalse(iURLiP("foo\t"))
+        self.assertFalse(iURLiP(" foo"))
+        self.assertFalse(iURLiP("foo "))
