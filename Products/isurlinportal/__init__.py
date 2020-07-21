@@ -94,6 +94,9 @@ def safe_url_first_char(url):
 
 
 def isURLInPortal(self, url, context=None):
+    # Note: no docstring, because the method is publicly available
+    # but does not need to be callable on site-url/portal_url/isURLInPortal.
+
     # Check if a given url is on the same host and contains the portal
     # path.  Used to ensure that login forms can determine relevant
     # referrers (i.e. in portal).  Also return true for some relative
