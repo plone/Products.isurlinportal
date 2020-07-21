@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from ._compat import get_external_sites
 from ._compat import unescape
 from ._compat import urljoin
 from ._compat import urlparse
@@ -10,27 +11,6 @@ from Products.CMFPlone.URLTool import URLTool
 import re
 import string
 import unicodedata
-
-try:
-    # Plone 5.0+
-    from plone.registry.interfaces import IRegistry
-    from Products.CMFPlone.interfaces import ILoginSchema
-    from zope.component import getUtility
-
-    def _get_external_sites(context=None):
-        # context is not used here
-        registry = getUtility(IRegistry)
-        settings = registry.forInterface(ILoginSchema, prefix="plone")
-        return settings.allow_external_login_sites
-
-
-except ImportError:
-    # Plone 4.3
-    from Products.CMFCore.utils import getToolByName
-
-    def _get_external_sites(context=None):
-        props = getToolByName(context, "portal_properties").site_properties
-        return props.getProperty("allow_external_login_sites", [])
 
 
 # These schemas are allowed in full urls to consider them in the portal:
@@ -175,7 +155,7 @@ def isURLInPortal(self, url, context=None):
     if host == u_host and u_path.startswith(path):
         return True
 
-    for external_site in _get_external_sites(self):
+    for external_site in get_external_sites(self):
         _, host, path, _, _, _ = urlparse(external_site)
         if not path.endswith("/"):
             path += "/"

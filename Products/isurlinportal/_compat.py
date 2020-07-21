@@ -23,3 +23,24 @@ except ImportError:
     import html
 
     unescape = html.unescape
+
+try:
+    # Plone 5.0+
+    from plone.registry.interfaces import IRegistry
+    from Products.CMFPlone.interfaces import ILoginSchema
+    from zope.component import getUtility
+
+    def get_external_sites(context=None):
+        # context is not used here
+        registry = getUtility(IRegistry)
+        settings = registry.forInterface(ILoginSchema, prefix="plone")
+        return settings.allow_external_login_sites
+
+
+except ImportError:
+    # Plone 4.3
+    from Products.CMFCore.utils import getToolByName
+
+    def get_external_sites(context=None):
+        props = getToolByName(context, "portal_properties").site_properties
+        return props.getProperty("allow_external_login_sites", [])
