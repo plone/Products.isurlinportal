@@ -11,6 +11,7 @@ from Products.CMFPlone.URLTool import URLTool
 
 import html
 import re
+# TODO maybe get rid of six dependency, as older Plones may not have it.
 import six
 import string
 import unicodedata
