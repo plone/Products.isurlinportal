@@ -61,6 +61,7 @@ class TestURLTool(unittest.TestCase):
         self.assertTrue(iURLiP("https://www.foobar.com/bar/foo/folder"))
         self.assertFalse(iURLiP("http://www.foobar.com:8080/bar/foo/folder"))
         self.assertFalse(iURLiP("http://www.foobar.com/bar"))
+        self.assertFalse(iURLiP("http://other.foobar.com/bar/foo"))
         self.assertTrue(iURLiP("//www.foobar.com/bar/foo"))
         self.assertFalse(iURLiP("/images"))
         self.assertTrue(iURLiP("/bar/foo/foo"))
