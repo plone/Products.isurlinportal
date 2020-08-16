@@ -9,6 +9,15 @@ Changelog
 
 .. towncrier release notes start
 
+1.1.0 (2020-08-16)
+------------------
+
+New features:
+
+
+- Harden against tricky whitespace in urls.
+  [maurits] (#1)
+
 
 1.0.0 (2020-07-21)
 ------------------
