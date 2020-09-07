@@ -9,6 +9,16 @@ Changelog
 
 .. towncrier release notes start
 
+1.1.1 (2020-09-07)
+------------------
+
+Bug fixes:
+
+
+- Add testing for Python 3.6 + 3.8; add Python 3.8 trove classifier.
+  [tschorr] (#3)
+
+
 1.1.0 (2020-08-16)
 ------------------
 
