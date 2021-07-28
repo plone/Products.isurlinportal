@@ -131,6 +131,12 @@ def isURLInPortal(self, url, context=None):
         # and redirecting to 'mailto:' or 'ftp:' is silly.
         return False
 
+    if schema and not u_host:
+        # Example: https:example.org
+        # When we redirect to this, some browsers fail, others happily go to example.org.
+        # In any case, this is not in the portal.
+        return False
+
     # Someone may be doing tricks with escaped html code.
     unescaped_url = unescape(url)
     if unescaped_url != url:
