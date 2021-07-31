@@ -12,7 +12,7 @@ long_description = readme + "\n" + changes
 
 setup(
     name="Products.isurlinportal",
-    version="1.1.2.dev0",
+    version="1.2.0.dev0",
     description="Replacement for isURLInPortal method in Plone",
     long_description=long_description,
     # Get more strings from https://pypi.org/classifiers/
