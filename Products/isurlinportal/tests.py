@@ -167,6 +167,11 @@ class TestURLTool(unittest.TestCase):
             iURLiP("data:text/html%3bbase64,PHNjcmlwdD5hbGVydCgnWFNTJyk8L3NjcmlwdD4K")
         )
 
+    def test_ftp_not_in_portal(self):
+        url_tool = self._makeOne()
+        iURLiP = url_tool.isURLInPortal
+        self.assertFalse(iURLiP("ftp://ftp.example.org"))
+
     def test_double_slash(self):
         # I wondered if this might be a problem after reading
         # https://bugs.python.org/issue23505
@@ -204,3 +209,10 @@ class TestURLTool(unittest.TestCase):
         self.assertFalse(iURLiP("foo\t"))
         self.assertFalse(iURLiP(" foo"))
         self.assertFalse(iURLiP("foo "))
+
+    def test_without_slashes(self):
+        # This does not work in all browsers.
+        url_tool = self._makeOne()
+        iURLiP = url_tool.isURLInPortal
+        self.assertFalse(iURLiP("http:example.org"))
+        self.assertFalse(iURLiP("https:example.org"))
