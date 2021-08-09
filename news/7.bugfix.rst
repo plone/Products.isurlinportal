@@ -1,0 +1,2 @@
+Make tox.ini compatible with upcoming version 4 of tox.
+[jugmac00]
