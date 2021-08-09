@@ -103,9 +103,22 @@ def isURLInPortal(self, url, context=None):
     # site_properties are also considered within the portal to allow for
     # single sign on.
 
-    if len(url.splitlines()) > 1:
+    try:
+        lines = url.splitlines()
+    except AttributeError:
+        # I have seen None getting passed, and this should not give a traceback.
+        # Only string-like values should be considered.
+        # We could check 'isinstance(url, str)', but then you need to think about
+        # py2/3: bytes/str/unicode/text/basestring, and I don't want that.
+        return False
+    if len(lines) > 1:
         # very fishy
         return False
+    if not url:
+        # Redirecting to nothing would probably mean we end up on the same page.
+        # So an empty url should be fine.  This was always the case,
+        # but now we return early.
+        return True
     if url != url.strip():
         # somewhat fishy
         return False
