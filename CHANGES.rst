@@ -9,6 +9,17 @@ Changelog
 
 .. towncrier release notes start
 
+1.2.1 (2021-08-10)
+------------------
+
+Bug fixes:
+
+
+- Return False when a url is not like a string, for example None.
+  Note: this is not a security fix.
+  [maurits] (#8)
+
+
 1.2.0 (2021-07-31)
 ------------------
 

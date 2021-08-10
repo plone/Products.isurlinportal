@@ -1,3 +1,0 @@
-Return False when a url is not like a string, for example None.
-Note: this is not a security fix.
-[maurits]
