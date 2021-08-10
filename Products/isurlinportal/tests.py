@@ -216,3 +216,16 @@ class TestURLTool(unittest.TestCase):
         iURLiP = url_tool.isURLInPortal
         self.assertFalse(iURLiP("http:example.org"))
         self.assertFalse(iURLiP("https:example.org"))
+
+    def test_bad_type(self):
+        # I have seen None getting passed, giving a traceback.
+        # Only string-like values should be considered.
+        url_tool = self._makeOne()
+        iURLiP = url_tool.isURLInPortal
+        self.assertFalse(iURLiP(None))
+        self.assertFalse(iURLiP(True))
+        self.assertFalse(iURLiP(False))
+        self.assertFalse(iURLiP([self.site.absolute_url()]))
+        self.assertFalse(iURLiP((self.site.absolute_url(),)))
+        self.assertFalse(iURLiP(object()))
+        self.assertFalse(iURLiP(1))
