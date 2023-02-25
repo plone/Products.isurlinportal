@@ -138,6 +138,9 @@ You should always use the latest version of this package that is compatible with
   A bug was fixed, but no new vulnerability was patched.
   Update at a time of your choosing, or if you experience problems.
 
+Version 1.x is compatible with Plone 4.3, 5.0, 5.1, 5.2, 6.0.
+Version 2.x is compatible with Plone 6.
+
 
 Reporting vulnerabilities or bugs
 ---------------------------------
