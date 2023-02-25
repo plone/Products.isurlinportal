@@ -4,6 +4,7 @@ on:
   push:
     branches: [ master ]
   pull_request:
+  workflow_dispatch:
 
 jobs:
   build:
@@ -11,28 +12,21 @@ jobs:
       matrix:
         config:
         # [Python version, tox env]
-        - ["2.7",   "4.3-py27"]
-        - ["2.7",   "5.0-py27"]
-        - ["2.7",   "5.1-py27"]
-        - ["2.7",   "5.2-py27"]
-        - ["3.6",   "5.2-py36"]
-        - ["3.7",   "5.2-py37"]
-        - ["3.8",   "5.2-py38"]
+        - ["3.8",   "plone60-py38"]
+        - ["3.9",   "plone60-py39"]
+        - ["3.10",   "plone60-py310"]
+        - ["3.11",   "plone60-py311"]
 
     runs-on: ubuntu-latest
     name: ${{ matrix.config[1] }}
     steps:
-    - uses: actions/checkout@v2
-    - name: Install lxml compilation dependencies
-      run: |
-          sudo apt-get update
-          sudo apt-get install libxml2-dev libxslt1-dev
+    - uses: actions/checkout@v3
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v3
       with:
         python-version: ${{ matrix.config[0] }}
     - name: Pip cache
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: ~/.cache/pip
         key: ${{ runner.os }}-pip-${{ matrix.config[0] }}-${{ hashFiles('setup.*', 'tox.ini') }}
@@ -40,7 +34,7 @@ jobs:
           ${{ runner.os }}-pip-${{ matrix.config[0] }}-
           ${{ runner.os }}-pip-
     - name: Buildout cache
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: ~/.buildout/eggs
         key: ${{ runner.os }}-buildout-${{ matrix.config[1] }}-${{ hashFiles('setup.*', 'tox.ini', '*cfg') }}

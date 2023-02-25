@@ -1,12 +1,12 @@
-# -*- coding: utf-8 -*-
-from ._compat import get_external_sites
-from ._compat import unescape
-from ._compat import urljoin
-from ._compat import urlparse
+from html import unescape
+from plone.base.interfaces import ILoginSchema
+from plone.registry.interfaces import IRegistry
 from posixpath import normpath
-
 # This is the class we will patch:
 from Products.CMFPlone.URLTool import URLTool
+from urllib.parse import urljoin
+from urllib.parse import urlparse
+from zope.component import getUtility
 
 import re
 import string
@@ -86,6 +86,13 @@ def safe_url_first_char(url):
         if unicodedata.category(first)[0] == "C":
             return False
     return True
+
+
+def get_external_sites(context=None):
+    # context is not used here
+    registry = getUtility(IRegistry)
+    settings = registry.forInterface(ILoginSchema, prefix="plone")
+    return settings.allow_external_login_sites
 
 
 def isURLInPortal(self, url, context=None):

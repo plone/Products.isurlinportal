@@ -1,9 +1,7 @@
-# -*- coding: utf-8 -*-
 from Acquisition import aq_parent
 from Products.CMFCore.tests.base.dummy import DummyContent
 from Products.CMFCore.tests.base.dummy import DummyFolder
 from Products.CMFCore.tests.base.dummy import DummySite
-from zope.component import getSiteManager
 
 import unittest
 
