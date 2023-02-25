@@ -36,7 +36,6 @@ try:
         settings = registry.forInterface(ILoginSchema, prefix="plone")
         return settings.allow_external_login_sites
 
-
 except ImportError:
     # Plone 4.3
     from Products.CMFCore.utils import getToolByName
