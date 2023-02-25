@@ -29,6 +29,9 @@ setup(
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
     ],
     keywords="plone security hotfix patch",
     author="Plone Security Team",
@@ -39,5 +42,6 @@ setup(
     namespace_packages=["Products"],
     include_package_data=True,
     zip_safe=False,
+    python_requires=">=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5.*",
     install_requires=["setuptools"],
 )
