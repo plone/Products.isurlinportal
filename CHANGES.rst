@@ -9,6 +9,16 @@ Changelog
 
 .. towncrier release notes start
 
+2.0.0 (2023-03-14)
+------------------
+
+Breaking changes:
+
+
+- Drop compatibility with Plone 5.2 and lower.
+  [maurits] (#60)
+
+
 1.2.1 (2021-08-10)
 ------------------
 
