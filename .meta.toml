@@ -4,5 +4,8 @@
 template = "default"
 commit-id = "d7d930a5"
 
+[dependencies]
+ignores = "['Products.CMFPlone']"
+
 [codespell]
 additional-ignores = "noo"

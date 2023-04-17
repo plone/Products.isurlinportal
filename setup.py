@@ -37,9 +37,12 @@ setup(
     zip_safe=False,
     python_requires=">=3.8",
     install_requires=[
-        "Products.CMFPlone",
         "setuptools",
         "plone.base",
-        "plone.registry",
     ],
+    extras_require={
+        "test": [
+            "Products.CMFPlone",
+        ]
+    },
 )

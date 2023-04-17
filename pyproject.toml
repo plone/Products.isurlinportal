@@ -84,3 +84,4 @@ Zope = [
   'Products.CMFCore', 'Products.CMFDynamicViewFTI',
 ]
 python-dateutil = ['dateutil']
+ignore-packages = ['Products.CMFPlone']
