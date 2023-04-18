@@ -2,6 +2,7 @@ from html import unescape
 from plone.base.interfaces import ILoginSchema
 from plone.registry.interfaces import IRegistry
 from posixpath import normpath
+
 # This is the class we will patch:
 from Products.CMFPlone.URLTool import URLTool
 from urllib.parse import urljoin

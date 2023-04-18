@@ -1,0 +1,11 @@
+# Generated from:
+# https://github.com/plone/meta/tree/master/config/default
+[meta]
+template = "default"
+commit-id = "d7d930a5"
+
+[dependencies]
+ignores = "['Products.CMFPlone']"
+
+[codespell]
+additional-ignores = "noo"
