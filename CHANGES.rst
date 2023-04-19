@@ -9,6 +9,16 @@ Changelog
 
 .. towncrier release notes start
 
+2.0.1 (2023-04-19)
+------------------
+
+Internal:
+
+
+- Update configuration files.
+  [plone devs] (3333c742)
+
+
 2.0.0 (2023-03-14)
 ------------------
 
