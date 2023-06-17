@@ -1,11 +1,10 @@
 # Generated from:
 # https://github.com/plone/meta/tree/master/config/default
+# See the inline comments on how to expand/tweak this configuration file
 [meta]
 template = "default"
-commit-id = "d7d930a5"
+commit-id = "7723aeaf"
 
-[dependencies]
-ignores = "['Products.CMFPlone']"
-
-[codespell]
-additional-ignores = "noo"
+[pyproject]
+codespell_ignores = "noo"
+dependencies_ignores = "['Products.CMFPlone']"
