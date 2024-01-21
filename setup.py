@@ -39,9 +39,11 @@ setup(
     install_requires=[
         "setuptools",
         "plone.base",
+        "zope.component",
     ],
     extras_require={
         "test": [
+            "Acquisition",
             "Products.CMFPlone",
         ]
     },
