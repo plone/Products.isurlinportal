@@ -2,12 +2,10 @@ from html import unescape
 from plone.base.interfaces import ILoginSchema
 from plone.registry.interfaces import IRegistry
 from posixpath import normpath
-
-# This is the class we will patch:
-from Products.CMFPlone.URLTool import URLTool
 from urllib.parse import urljoin
 from urllib.parse import urlparse
 from zope.component import getUtility
+from ZPublisher import zpublish
 
 import re
 import string
@@ -96,21 +94,20 @@ def get_external_sites(context=None):
     return settings.allow_external_login_sites
 
 
+@zpublish(False)
 def isURLInPortal(self, url, context=None):
-    # Note: no docstring, because the method is publicly available
-    # but does not need to be callable on site-url/portal_url/isURLInPortal.
+    """Check if a given url is on the same host and contains the portal path.
 
-    # Check if a given url is on the same host and contains the portal
-    # path.  Used to ensure that login forms can determine relevant
-    # referrers (i.e. in portal).  Also return true for some relative
-    # urls if context is passed in to allow for url parsing. When context
-    # is not provided, assume that relative urls are in the portal. It is
-    # assumed that http://portal is the same portal as https://portal.
+    This is used to ensure that login forms can determine relevant
+    referrers (i.e. in portal).  Also return true for some relative
+    urls if context is passed in to allow for url parsing. When context
+    is not provided, assume that relative urls are in the portal. It is
+    assumed that http://portal is the same portal as https://portal.
 
-    # External sites listed in 'allow_external_login_sites' of
-    # site_properties are also considered within the portal to allow for
-    # single sign on.
-
+    External sites listed in 'allow_external_login_sites' of
+    site_properties are also considered within the portal to allow for
+    single sign on.
+    """
     try:
         lines = url.splitlines()
     except AttributeError:
@@ -199,7 +196,3 @@ def isURLInPortal(self, url, context=None):
         if host == u_host and u_path.startswith(path):
             return True
     return False
-
-
-# Add our method to the URLTool.
-URLTool.isURLInPortal = isURLInPortal
