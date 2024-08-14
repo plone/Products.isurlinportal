@@ -9,6 +9,18 @@ Changelog
 
 .. towncrier release notes start
 
+2.0.3 (2024-08-14)
+------------------
+
+Documentation:
+
+
+- Version 2.x is compatible with Plone 6.0.
+  Version 3.x is compatible with Plone 6.1 and higher.
+  Version 3 changes the way this package is integrated in the Plone core.
+  [maurits] (#12)
+
+
 2.0.2 (2024-01-22)
 ------------------
 
