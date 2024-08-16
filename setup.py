@@ -11,20 +11,19 @@ long_description = readme + "\n" + changes
 
 setup(
     name="Products.isurlinportal",
-    version="2.0.4.dev0",
-    description="Replacement for isURLInPortal method in Plone",
+    version="3.0.0.dev0",
+    description="Implementation of isURLInPortal method in Plone",
     long_description=long_description,
     # Get more strings from https://pypi.org/classifiers/
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Framework :: Plone",
-        "Framework :: Plone :: 6.0",
+        "Framework :: Plone :: 6.1",
         "License :: OSI Approved :: GNU General Public License (GPL)",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 3.8",
-        "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
     ],
     keywords="plone security hotfix patch",
     author="Plone Security Team",
@@ -35,15 +34,14 @@ setup(
     namespace_packages=["Products"],
     include_package_data=True,
     zip_safe=False,
-    python_requires=">=3.8",
+    python_requires=">=3.10",
     install_requires=[
         "setuptools",
         "plone.base",
-        "zope.component",
+        "Zope>=5.10",
     ],
     extras_require={
         "test": [
-            "Acquisition",
             "Products.CMFPlone",
         ]
     },
