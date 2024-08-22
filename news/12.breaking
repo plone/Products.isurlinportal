@@ -1,3 +1,0 @@
-No longer patch Products.CMFPlone.  Version 6.1.0a5 will use us directly.
-This solves cyclic dependencies, and is incompatible with Plone 6.0.
-[maurits]

@@ -9,6 +9,17 @@ Changelog
 
 .. towncrier release notes start
 
+3.0.0 (2024-08-22)
+------------------
+
+Breaking changes:
+
+
+- No longer patch Products.CMFPlone.  Version 6.1.0a5 will use us directly.
+  This solves cyclic dependencies, and is incompatible with Plone 6.0.
+  [maurits] (#12)
+
+
 2.0.3 (2024-08-14)
 ------------------
 
