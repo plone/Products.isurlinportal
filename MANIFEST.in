@@ -1,5 +1,5 @@
 include *.rst
-graft Products
+graft src
 global-exclude *.pyc
 include pyproject.toml
 recursive-exclude news *
