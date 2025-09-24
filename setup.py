@@ -5,7 +5,7 @@ from setuptools import setup
 
 setup(
     name="Products.isurlinportal",
-    version="3.0.1",
+    version="3.0.2.dev0",
     description="Implementation of isURLInPortal method in Plone",
     long_description=(
         f"{Path('README.rst').read_text()}\n{Path('CHANGES.rst').read_text()}\n"
