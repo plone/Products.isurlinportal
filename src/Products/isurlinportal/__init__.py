@@ -135,6 +135,11 @@ def isURLInPortal(self, url, context=None):
 
     # sanitize url
     url = re.sub("^[\x00-\x20]+", "", url).strip()
+
+    # Allow maximum two leading slashes
+    if url.startswith("///"):
+        return False
+
     cmp_url = url.lower()
     for bad in BAD_URL_PARTS:
         if bad in cmp_url:

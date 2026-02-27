@@ -2,6 +2,7 @@ from Acquisition import aq_parent
 from Products.CMFCore.tests.base.dummy import DummyContent
 from Products.CMFCore.tests.base.dummy import DummyFolder
 from Products.CMFCore.tests.base.dummy import DummySite
+from unittest.mock import patch
 
 import unittest
 
@@ -171,13 +172,26 @@ class TestURLTool(unittest.TestCase):
         self.assertFalse(iURLiP("ftp://ftp.example.org"))
 
     def test_double_slash(self):
-        # I wondered if this might be a problem after reading
-        # https://bugs.python.org/issue23505
-        # Apparently not, but let's test it.
         url_tool = self._makeOne()
         iURLiP = url_tool.isURLInPortal
         self.assertFalse(iURLiP("//www.google.com"))
         self.assertFalse(iURLiP("////www.google.com"))
+
+    def test_double_slash_with_vhm(self):
+        # Override absolute_url to simulate a virtual hosting environment
+        with patch.object(
+            self.site,
+            "absolute_url",
+            return_value="http://www.foobar.com",
+        ):
+            url_tool = self._makeOne()
+            iURLiP = url_tool.isURLInPortal
+            self.assertTrue(iURLiP("//www.foobar.com"))
+            self.assertFalse(iURLiP("///www.foobar.com"))
+            self.assertFalse(iURLiP("////www.foobar.com"))
+            self.assertFalse(iURLiP("//www.google.com"))
+            self.assertFalse(iURLiP("///www.google.com"))
+            self.assertFalse(iURLiP("////www.google.com"))
 
     def test_empty(self):
         # Redirecting to nothing would probably mean we end up on the same page.
