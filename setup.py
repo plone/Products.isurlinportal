@@ -2,7 +2,6 @@ from pathlib import Path
 from setuptools import find_packages
 from setuptools import setup
 
-
 setup(
     name="Products.isurlinportal",
     version="3.0.2.dev0",
