@@ -8,3 +8,6 @@ commit-id = "2.4.1.dev0"
 [pyproject]
 codespell_ignores = "noo"
 dependencies_ignores = "['Products.CMFPlone']"
+
+[tox]
+test_matrix = {"6.0" = ["*"]}
