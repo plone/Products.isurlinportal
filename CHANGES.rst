@@ -9,6 +9,24 @@ Changelog
 
 .. towncrier release notes start
 
+3.1.0 (2026-03-02)
+------------------
+
+New features:
+
+
+- Prevent URLs that start with more than two slashes to be considered as URLs in portal.
+  See `security advisory <https://github.com/plone/Products.isurlinportal/security/advisories/GHSA-43gx-6gv6-3jcp>`_.
+  [ale-rt, maurits]
+
+
+Internal:
+
+
+- Update configuration files.
+  [plone devs]
+
+
 3.0.1 (2025-09-24)
 ------------------
 
