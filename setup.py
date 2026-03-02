@@ -1,7 +1,6 @@
 from setuptools import find_packages
 from setuptools import setup
 
-
 with open("README.rst") as myfile:
     readme = myfile.read()
 with open("CHANGES.rst") as myfile:

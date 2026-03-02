@@ -13,7 +13,6 @@ import re
 import string
 import unicodedata
 
-
 # These schemas are allowed in full urls to consider them in the portal:
 # A mailto schema is an obvious sign of a url that is not in the portal.
 # This is a whitelist.
